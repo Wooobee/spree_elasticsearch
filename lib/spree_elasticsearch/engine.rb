@@ -28,8 +28,8 @@ module SpreeElasticsearch
             client.indices.create index: Spree::ElasticsearchSettings.index, body: { }
           rescue Elasticsearch::Transport::Transport::Errors::BadRequest
           end
-          # create or update all mappings on the index
-          client.indices.put_mapping index: Spree::ElasticsearchSettings.index, type: Spree::Product.type, body: Spree::Product.mapping
+          # create or update all mappings on the index #changed manially by Manuel please uncomment to use mapping
+          #client.indices.put_mapping index: Spree::ElasticsearchSettings.index, type: Spree::Product.type, body: Spree::Product.mapping
         end
       rescue Errno::ENOENT
         Rails.logger.error "The file config/elasticsearch.yml was not found. Please install with bundle exec rails g spree_elasticsearch:install."
