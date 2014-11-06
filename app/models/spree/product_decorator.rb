@@ -4,7 +4,24 @@ module Spree
 
     index_name Spree::ElasticsearchSettings.index
     document_type 'spree_product'
-
+    
+    settings analysis: do
+      analyzer: do
+        sku: do
+          tokenizer: 'sku'
+        end
+      end
+      
+      tokenizer: do
+        sku: do
+          type: 'edgeNGram',
+          min_gram: '3',
+          max_gram: '10',
+          token_chars: [ 'letter', 'digit' ]
+        end
+      end
+    end
+    
     mapping do
       indexes :name, type: 'multi_field' do
         indexes :name, type: 'string', analyzer: 'snowball', boost: 100
@@ -13,7 +30,7 @@ module Spree
       indexes :description, analyzer: 'snowball'
       indexes :available_on, type: 'date', format: 'dateOptionalTime', include_in_all: false
       indexes :price, type: 'double'
-      indexes :sku, type: 'string', index: 'not_analyzed'
+      indexes :sku, type: 'string', analyzer: 'sku'
       indexes :taxon_ids, type: 'string', index: 'not_analyzed'
       indexes :properties, type: 'string', index: 'not_analyzed'
     end
