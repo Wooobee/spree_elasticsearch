@@ -109,7 +109,7 @@ module Spree
         updated_at: { type: 'date', format: 'dateOptionalTime', include_in_all: false },
         price: { type: 'double' },
         properties: { type: 'string', index: 'not_analyzed' },
-        sku: { type: 'string', index: 'not_analyzed' },
+        sku: { type: 'string', analyzer: 'sku' },
         taxons: { type: 'string', index: 'not_analyzed' }
       }
     end
