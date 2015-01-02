@@ -1,3 +1,4 @@
+<% unless @products.nil? %>
 <% unless @products.empty? %>
   <%= form_tag '', :method => :get, :id => 'sidebar_products_search' do %>
     <% params[:search] ||= {} %>
@@ -8,4 +9,4 @@
     <%= submit_tag Spree.t(:search), :name => nil %>
   <% end %>
 <% end %>
-
+<% end %>
