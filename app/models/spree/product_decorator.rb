@@ -38,10 +38,7 @@ module Spree
 
     include Concerns::Indexable
 
-    # Exclude following keys when retrieving something from the Elasticsearch response.
-    def self.exclude_from_response
-      ['properties','taxons','variants']
-    end
+
 
     # Used at startup when creating or updating the index with all type mappings
     def self.type_mapping
@@ -79,7 +76,7 @@ module Spree
       unless taxons.empty?
         # in order for the term facet to be correct we should always include the parent taxon(s)
         result['taxons'] = taxons.map do |taxon|
-          #taxon.self_and_ancestors.map(&:permalink)
+          taxon.self_and_ancestors.map(&:permalink)
         end.flatten
       end
       # add variants information
