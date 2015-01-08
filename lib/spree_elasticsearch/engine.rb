@@ -28,7 +28,7 @@ module SpreeElasticsearch
             client.indices.create index: Spree::ElasticsearchSettings.index, body: { }
           rescue Elasticsearch::Transport::Transport::Errors::BadRequest
           end
-          # create or update all mappings on the index #changed manially by Manuel please uncomment to use mapping
+          # create or update all mappings on the index #changed manually by Manuel please uncomment to use mapping
           #client.indices.put_mapping index: Spree::ElasticsearchSettings.index, type: Spree::Product.type, body: Spree::Product.mapping
         end
       rescue Errno::ENOENT

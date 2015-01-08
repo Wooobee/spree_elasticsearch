@@ -20,17 +20,17 @@ module Spree
         prepare(params)
       end
 
-      def retrieve_products
-        from = (@page - 1) * Spree::Config.products_per_page
-        Spree::Product.search(
-          query: query,
-          taxons: taxons,
-          from: from,
-          price_min: price_min,
-          price_max: price_max,
-          properties: properties
-        )
-      end
+      #def retrieve_products
+       # from = (@page - 1) * Spree::Config.products_per_page
+        #Spree::Product.search(
+        # query: query,
+        #  taxons: taxons,
+        #  from: from,
+        #  price_min: price_min,
+        #  price_max: price_max,
+        #  properties: properties
+        #)
+        #end
 
       protected
 
