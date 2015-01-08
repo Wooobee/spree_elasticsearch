@@ -38,7 +38,7 @@ module Spree
 
     include Concerns::Indexable
 
-
+ 
 
     # Used at startup when creating or updating the index with all type mappings
     def self.type_mapping
