@@ -17,7 +17,7 @@ module Spree
 
       def initialize(params)
         self.current_currency = Spree::Config[:currency]
-        prepare(params)
+        #prepare(params)
       end
 
       #def retrieve_products
