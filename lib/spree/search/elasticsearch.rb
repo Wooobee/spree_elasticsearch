@@ -35,22 +35,22 @@ module Spree
       protected
 
       # converts params to instance variables
-      def prepare(params)
-        @query = params[:keywords]
-        # taxon
-        taxon = params[:taxon].blank? ? nil : Spree::Taxon.find(params[:taxon])
-        @taxons = taxon ? taxon.permalink : nil
-        if params[:search]
-          # price
-          @price_min = params[:search][:price][:min].to_f
-          @price_max = params[:search][:price][:max].to_f
-          # properties
-          @properties = params[:search][:properties]
-        end
+      #def prepare(params)
+      #  @query = params[:keywords]
+      #  # taxon
+      #  taxon = params[:taxon].blank? ? nil : Spree::Taxon.find(params[:taxon])
+      #  @taxons = taxon ? taxon.permalink : nil
+      #  if params[:search]
+      #    # price
+      #    @price_min = params[:search][:price][:min].to_f
+      #    @price_max = params[:search][:price][:max].to_f
+      #    # properties
+      #    @properties = params[:search][:properties]
+      #  end
 
-        @per_page = (params[:per_page].to_i <= 0) ? Spree::Config[:products_per_page] : params[:per_page].to_i
-        @page = (params[:page].to_i <= 0) ? 1 : params[:page].to_i
-      end
+      #  @per_page = (params[:per_page].to_i <= 0) ? Spree::Config[:products_per_page] : params[:per_page].to_i
+      #  @page = (params[:page].to_i <= 0) ? 1 : params[:page].to_i
+      #end
     end
   end
 end
