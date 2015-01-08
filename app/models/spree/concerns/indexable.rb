@@ -73,17 +73,17 @@ module Spree
         end
 
         # Get a document in Elasticsearch based on id
-        def get(id)
-          result = client.get id: id,
-                              type: type,
-                              index: configuration.index
-          object_attributes = result["_source"]
-          object_attributes.except!(*exclude_from_response)
-          model = self.new(object_attributes)
-          model.elasticsearch_index = result["_index"]
-          model.version = result["_version"]
-          model
-        end
+        #def get(id)
+        #  result = client.get id: id,
+        #                      type: type,
+        #                      index: configuration.index
+        #  object_attributes = result["_source"]
+        #  object_attributes.except!(*exclude_from_response)
+        #  model = self.new(object_attributes)
+        #  model.elasticsearch_index = result["_index"]
+        #  model.version = result["_version"]
+        #  model
+        #end
 
         # Used during initialization of the application to create or update the mapping.
         # The actual implementation of the mapping is defined in the models.
@@ -96,32 +96,32 @@ module Spree
         end
 
         # The actual searching in Elasticsearch.
-        def search(args = {})
-          search_args = {}
-          search_args[:body] = self::ElasticsearchQuery.new(args).to_hash
-          search_args[:index] = configuration.index
-          search_args[:type] = type
+        #def search(args = {})
+        #  search_args = {}
+        #  search_args[:body] = self::ElasticsearchQuery.new(args).to_hash
+        #  search_args[:index] = configuration.index
+        #  search_args[:type] = type
 
-          result = client.search search_args
-          ids = result["hits"]["hits"].map {|item| item["_source"]["id"] } # use to get the records and sort them in that order
-          result_list = includes(:translations, [:master => [:prices, :images]]).where(id: ids).index_by(&:id).slice(*ids).values
+        #  result = client.search search_args
+        #  ids = result["hits"]["hits"].map {|item| item["_source"]["id"] } # use to get the records and sort them in that order
+        #  result_list = includes(:translations, [:master => [:prices, :images]]).where(id: ids).index_by(&:id).slice(*ids).values
 
           # Convert all facets to facet objects
-          facet_list = result["facets"].map do |tuple|
-            name = tuple[0]
-            hash = tuple[1]
-            type = hash["_type"]
-            body = hash.except!("_type")
-            Spree::Search::Elasticsearch::Facet.new(name: name, search_name: name, type: type, body: body)
-          end
+        #  facet_list = result["facets"].map do |tuple|
+        #    name = tuple[0]
+        #    hash = tuple[1]
+        #    type = hash["_type"]
+        #    body = hash.except!("_type")
+        #    Spree::Search::Elasticsearch::Facet.new(name: name, search_name: name, type: type, body: body)
+        #  end
 
-          ResultList.new(
-            results: result_list,
-            from: Integer(args.fetch(:from, 0)),
-            total: result["hits"]["total"],
-            facets: facet_list
-          )
-        end
+        #  ResultList.new(
+        #    results: result_list,
+        #    from: Integer(args.fetch(:from, 0)),
+        #    total: result["hits"]["total"],
+        #    facets: facet_list
+        #  )
+        #end
 
         def type
           name.underscore.gsub('/','_')
